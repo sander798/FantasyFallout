@@ -1,12 +1,19 @@
-package blockDungeons3
+package fantasyFallout
 
 import "core:fmt"
 import "core:log"
 import rl "vendor:raylib"
 
-TITLE :: "Block Dungeons 3"
+TITLE :: "FantasyFallout"
 VERSION :: "v0.0.1"
-DATE :: "September 3rd, 2025"
+DATE :: "October 22nd, 2025"
+
+debugMode := false
+
+gameState :: enum {
+    MAIN_MENU,
+    PLAY,
+}
 
 main :: proc() {
     context.logger = log.create_console_logger()
@@ -16,14 +23,12 @@ main :: proc() {
 
     rl.InitWindow(800, 600, TITLE)
     defer rl.CloseWindow()
-
+    
     rl.SetTargetFPS(60)
 
+    loadAssets()
+
     for !rl.WindowShouldClose() {
-        rl.BeginDrawing()
-
-        rl.ClearBackground(rl.BLACK)
-
-        rl.EndDrawing()
+        update()
     }
 }
